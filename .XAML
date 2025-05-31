@@ -1,0 +1,335 @@
+<!-- MainWindow -->
+<Grid>
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Button Content="Методы оплаты" Click="ButtonPaymentMethods_Click" Width="200" Height="50" Margin="10"/>
+        <Button Content="Налоги" Width="200" Height="50" Margin="10" Click="ButtonTax_Click"/>
+        <Button Content="Налогоплательщики" Width="200" Height="50" Margin="10" Click="ButtonTaxpayers_Click"/>
+        <Button Content="Платежи" Height="50" Width="200" Margin="0,10,0,0" Click="ButtonPayments_Click"/>
+    </StackPanel>
+</Grid>
+
+<!-- PaymentMethodsWindow -->
+<Grid>
+    <StackPanel>
+        <DataGrid x:Name="DataGridPaymentMethods"
+      AutoGenerateColumns="False"
+      Height="300"
+      Margin="0,0,0,10"
+      CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Method_ID}" Width="50"/>
+                <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="200"/>
+                <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="*"/>
+                <DataGridTemplateColumn Header="Изменить" Width="80">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Изменить" Click="ButtonEdit_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Удалить" Width="80">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Удалить" Click="ButtonDelete_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Добавить метод" Height="40" Width="150" Margin="0,10,0,0" Click="ButtonAdd_Click"/>
+        <Button Content="Назад в меню" Height="35" Width="150" Margin="0,10,0,0" Click="ButtonBack_Click"/>
+    </StackPanel>
+</Grid>
+
+<!-- PaymentsWindow -->
+<Grid>
+    <StackPanel>
+        <DataGrid x:Name="DataGridPayments"
+                  AutoGenerateColumns="False"
+                  Height="300"
+                  Margin="0,0,0,10"
+                  CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Payment_Id}" Width="50"/>
+                <DataGridTextColumn Header="Плательщик" Binding="{Binding Taxpayers.Full_name}" Width="150"/>
+                <DataGridTextColumn Header="Налог" Binding="{Binding Tax.Name}" Width="120"/>
+                <DataGridTextColumn Header="Период" Binding="{Binding Tax_period.Description}" Width="120"/>
+                <DataGridTextColumn Header="Метод" Binding="{Binding Payment_methods.Name}" Width="100"/>
+                <DataGridTextColumn Header="Сумма" Binding="{Binding Amount}" Width="80"/>
+                <DataGridTextColumn Header="Дата" Binding="{Binding Date}" Width="120"/>
+                <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="100"/>
+                <DataGridTextColumn Header="Валюта" Binding="{Binding Currency}" Width="60"/>
+                <DataGridTemplateColumn Header="Изменить" Width="80">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Изменить" Click="ButtonEdit_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Удалить" Width="80">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Удалить" Click="ButtonDelete_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Добавить платёж" Height="40" Width="200" Margin="0,10,0,0" Click="ButtonAdd_Click"/>
+        <Button Content="Назад в меню" Height="35" Width="150" Margin="0,10,0,0" Click="ButtonBack_Click"/>
+    </StackPanel>
+</Grid>
+
+<!-- TaxpayersWindow -->
+<Grid>
+    <StackPanel>
+        <DataGrid x:Name="DataGridTaxpayers"
+                  AutoGenerateColumns="False"
+                  Height="300"
+                  Margin="0,0,0,10"
+                  CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Taxpayer_ID}" Width="50"/>
+                <DataGridTextColumn Header="ФИО" Binding="{Binding Full_name}" Width="200"/>
+                <DataGridTextColumn Header="Тип" Binding="{Binding Type}" Width="100"/>
+                <DataGridTextColumn Header="ИНН" Binding="{Binding TIN}" Width="100"/>
+                <DataGridTextColumn Header="Адрес" Binding="{Binding Address}" Width="200"/>
+                <DataGridTextColumn Header="Телефон" Binding="{Binding Phone_number}" Width="100"/>
+                <DataGridTemplateColumn Header="Изменить" Width="80">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Изменить" Click="ButtonEdit_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Удалить" Width="80">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Удалить" Click="ButtonDelete_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Добавить налогоплательщика" Height="40" Width="250" Margin="0,10,0,0" Click="ButtonAdd_Click"/>
+        <Button Content="Назад в меню" Height="35" Width="150" Margin="0,10,0,0" Click="ButtonBack_Click"/>
+    </StackPanel>
+</Grid>
+
+<!-- TaxWindow -->
+<Grid>
+    <StackPanel>
+        <DataGrid x:Name="DataGridTax" AutoGenerateColumns="False" Height="300" Margin="0,0,0,10" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Tax_ID}" Width="50"/>
+                <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="200"/>
+                <DataGridTextColumn Header="Ставка" Binding="{Binding Rate}" Width="100"/>
+                <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="*"/>
+                <DataGridTemplateColumn Header="Изменить" Width="80">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Изменить" Click="ButtonEdit_Click" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Удалить" Width="80">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Удалить" Click="ButtonDelete_Click" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Добавить налог" Height="40" Width="150" Margin="0,10,0,0" Click="ButtonAdd_Click"/>
+        <Button Content="Назад в меню" Height="35" Width="150" Margin="0,10,0,0" Click="ButtonBack_Click"/>
+    </StackPanel>
+</Grid>
+
+<!-- AddPaymentMethodWindow -->
+<Grid Margin="20">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <Label Content="Название:" Grid.Row="0"/>
+    <TextBox x:Name="NameBox" Grid.Row="1" Margin="0,5,0,15"/>
+
+    <Label Content="Описание:" Grid.Row="2"/>
+    <TextBox x:Name="DescriptionBox" Grid.Row="3" Margin="0,5,0,15"/>
+
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="4" Margin="0,10,0,0">
+        <Button Content="Сохранить" Click="ButtonSave_Click" Width="100" Margin="10"/>
+        <Button Content="Назад" Click="ButtonBack_Click" Width="100" Margin="10"/>
+    </StackPanel>
+</Grid>
+
+<!-- AddPaymentWindow -->
+<Grid>
+    <StackPanel Margin="20">
+        <Label Content="Плательщик:"/>
+        <ComboBox x:Name="TaxpayerBox" DisplayMemberPath="Full_name"/>
+
+        <Label Content="Налог:"/>
+        <ComboBox x:Name="TaxBox" DisplayMemberPath="Name"/>
+
+        <Label Content="Период:"/>
+        <ComboBox x:Name="PeriodBox" DisplayMemberPath="Description"/>
+
+        <Label Content="Метод оплаты:"/>
+        <ComboBox x:Name="MethodBox" DisplayMemberPath="Name"/>
+
+        <Label Content="Сумма:"/>
+        <TextBox x:Name="AmountBox"/>
+
+        <Label Content="Статус:"/>
+        <TextBox x:Name="StatusBox"/>
+
+        <Label Content="Валюта:"/>
+        <TextBox x:Name="CurrencyBox" Text="RUB"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+            <Button Content="Сохранить" Click="ButtonSave_Click" Width="100" Margin="10"/>
+            <Button Content="Назад" Click="ButtonBack_Click" Width="100" Margin="10"/>
+        </StackPanel>
+    </StackPanel>
+</Grid>
+
+<!-- AddTaxpayerWindow -->
+<Grid>
+    <StackPanel Margin="20">
+        <Label Content="ФИО:"/>
+        <TextBox Text="{Binding Full_name}" Margin="0,0,0,10"/>
+        <Label Content="Тип:"/>
+        <TextBox Text="{Binding Type}" Margin="0,0,0,10"/>
+        <Label Content="ИНН:"/>
+        <TextBox Text="{Binding TIN}" Margin="0,0,0,10"/>
+        <Label Content="Адрес:"/>
+        <TextBox Text="{Binding Address}" Margin="0,0,0,10"/>
+        <Label Content="Телефон:"/>
+        <TextBox Text="{Binding Phone_number}" Margin="0,0,0,10"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Сохранить" Width="100" Margin="10" Click="ButtonSave_Click"/>
+            <Button Content="Назад" Width="100" Margin="10" Click="ButtonBack_Click"/>
+        </StackPanel>
+    </StackPanel>
+</Grid>
+
+<!-- AddTaxWindow -->
+<Grid>
+    <StackPanel Margin="20">
+        <Label Content="Название:"/>
+        <TextBox x:Name="NameBox"/>
+
+        <Label Content="Ставка:"/>
+        <TextBox x:Name="RateBox"/>
+
+        <Label Content="Описание:"/>
+        <TextBox x:Name="DescriptionBox"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+            <Button Content="Сохранить" Width="100" Margin="10" Click="ButtonSave_Click"/>
+            <Button Content="Назад" Width="100" Margin="10" Click="ButtonBack_Click"/>
+        </StackPanel>
+    </StackPanel>
+</Grid>
+
+<!-- EditPaymentMethodWindow -->
+<Grid Margin="20">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <Label Content="Название:" Grid.Row="0"/>
+    <TextBox Text="{Binding Name}" Grid.Row="1" Margin="0,5,0,15"/>
+
+    <Label Content="Описание:" Grid.Row="2"/>
+    <TextBox Text="{Binding Description}" Grid.Row="3" Margin="0,5,0,15"/>
+
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="4" Margin="0,10,0,0">
+        <Button Content="Сохранить" Click="ButtonSave_Click" Width="100" Margin="10"/>
+        <Button Content="Назад" Click="ButtonBack_Click" Width="100" Margin="10"/>
+    </StackPanel>
+</Grid>
+
+<!-- EditPaymentWindow -->
+<Grid>
+    <StackPanel Margin="20">
+        <Label Content="Плательщик:"/>
+        <ComboBox x:Name="TaxpayerBox" DisplayMemberPath="Full_name"/>
+
+        <Label Content="Налог:"/>
+        <ComboBox x:Name="TaxBox" DisplayMemberPath="Name"/>
+
+        <Label Content="Период:"/>
+        <ComboBox x:Name="PeriodBox" DisplayMemberPath="Description"/>
+
+        <Label Content="Метод оплаты:"/>
+        <ComboBox x:Name="MethodBox" DisplayMemberPath="Name"/>
+
+        <Label Content="Сумма:"/>
+        <TextBox x:Name="AmountBox"/>
+
+        <Label Content="Статус:"/>
+        <TextBox x:Name="StatusBox"/>
+
+        <Label Content="Валюта:"/>
+        <TextBox x:Name="CurrencyBox"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+            <Button Content="Сохранить" Click="ButtonSave_Click" Width="100" Margin="10"/>
+            <Button Content="Назад" Click="ButtonBack_Click" Width="100" Margin="10"/>
+        </StackPanel>
+    </StackPanel>
+</Grid>
+
+<!-- EditTaxpayerWindow -->
+<Grid>
+    <StackPanel Margin="20">
+        <Label Content="ФИО:"/>
+        <TextBox Text="{Binding Full_name}" Margin="0,0,0,10"/>
+        <Label Content="Тип:"/>
+        <TextBox Text="{Binding Type}" Margin="0,0,0,10"/>
+        <Label Content="ИНН:"/>
+        <TextBox Text="{Binding TIN}" Margin="0,0,0,10"/>
+        <Label Content="Адрес:"/>
+        <TextBox Text="{Binding Address}" Margin="0,0,0,10"/>
+        <Label Content="Телефон:"/>
+        <TextBox Text="{Binding Phone_number}" Margin="0,0,0,10"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Сохранить" Width="100" Margin="10" Click="ButtonSave_Click"/>
+            <Button Content="Назад" Width="100" Margin="10" Click="ButtonBack_Click"/>
+        </StackPanel>
+    </StackPanel>
+</Grid>
+
+<!-- EditTaxWindow -->
+<Grid>
+    <StackPanel Margin="20">
+        <Label Content="Название:"/>
+        <TextBox Text="{Binding Name}" Margin="0,0,0,10"/>
+
+        <Label Content="Ставка (%):"/>
+        <TextBox Text="{Binding Rate}" Margin="0,0,0,10"/>
+
+        <Label Content="Описание:"/>
+        <TextBox Text="{Binding Description}" Margin="0,0,0,10"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+            <Button Content="Сохранить" Width="100" Margin="10" Click="ButtonSave_Click"/>
+            <Button Content="Назад" Width="100" Margin="10" Click="ButtonBack_Click"/>
+        </StackPanel>
+    </StackPanel>
+</Grid>
+
+
